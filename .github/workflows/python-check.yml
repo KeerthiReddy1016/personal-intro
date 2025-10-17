@@ -1,0 +1,37 @@
+name: Python CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  run-python:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️ Get the code from your repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2️ Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      # 3️ Install dependencies (none here, but ready for future)
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+
+      # 4️ Run a simple syntax check
+      - name: Run syntax check
+        run: |
+          python -m py_compile intro.py
+
+      # 5️ (Optional) Actually run your program
+      # This will fail if your program expects user input, so comment out if needed
+      # - name: Run program
+      #   run: python intro.py
